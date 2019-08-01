@@ -5,10 +5,15 @@ WORKDIR /app
 
 RUN apt update
 RUN apt-get install build-essential -y
-# RUN apt install -y find
-# RUN find / -name "ncc"
-# CMD ["find" "/" "-name" "nvcc"]
+COPY initopencv.sh .
+RUN /bin/bash initopencv.sh
+COPY installopencv.sh .
+RUN /bin/bash installopencv.sh
+
 COPY darknet .
-RUN make -j
-CMD tail -f /dev/null
+
+COPY Makefile .
+RUN make -j 8
+# CMD tail -f /dev/null
 # CMD ["./darknet" "detect" "cfg/yolov3.cfg" "yolov3.weights" "data/dog.jpg"]
+CMD ./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights
