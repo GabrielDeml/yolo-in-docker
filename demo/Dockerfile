@@ -16,4 +16,5 @@ COPY Makefile .
 RUN make -j 8
 # CMD tail -f /dev/null
 # CMD ["./darknet" "detect" "cfg/yolov3.cfg" "yolov3.weights" "data/dog.jpg"]
-CMD ./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights
+# CMD ./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights -thresh 0.2
+CMD ./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights
